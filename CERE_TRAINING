@@ -1,3 +1,7 @@
+"""CERE_TRAINING Fase 2A — DRY RUN.
+t = cierre; estado usa datos <= t; entrada Open(t+1); salida Close(t+H).
+No escribe Google Sheets y no calcula EV/vecinos/Student-t/Kelly.
+"""
 import time
 from datetime import datetime, timezone
 from pathlib import Path
