@@ -1,0 +1,33 @@
+name: CERE Phase 5B - Information Diagnostics
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phase5b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy yfinance
+
+      - name: Run CERE Phase 5B
+        run: python construir_cere_training_phase5b.py
+
+      - name: Upload Phase 5B artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cere-phase5b-diagnostics
+          path: cere_phase5b_diagnostics/
+          if-no-files-found: error
