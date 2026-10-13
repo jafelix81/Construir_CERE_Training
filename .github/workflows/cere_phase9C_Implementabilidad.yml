@@ -1,0 +1,35 @@
+name: CERE Phase 9C - Implementabilidad
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phase9c:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas yfinance
+
+      - name: Run CERE Phase 9C
+        run: |
+          python CERE_Phase9C_Implementabilidad.py
+
+      - name: Upload Phase 9C artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cere_phase9c_implementabilidad
+          path: cere_phase9c_implementabilidad/
+          if-no-files-found: warn
