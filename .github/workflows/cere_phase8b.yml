@@ -1,0 +1,33 @@
+name: CERE Phase 8B - Robustez Economica Final
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phase8b:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy yfinance
+
+      - name: Run CERE Phase 8B
+        run: |
+          python construir_cere_training_phase8b.py
+
+      - name: Upload Phase 8B artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cere-phase8b-robustez
+          path: cere_phase8b_robustez/
