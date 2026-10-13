@@ -23,10 +23,8 @@ jobs:
           pip install numpy pandas yfinance
 
       - name: Run CERE Phase 9 v2
-        env:
-          CERE_UNIVERSE_FILE: ""
         run: |
-          python construir_cere_phase9_v2_portafolio.py
+          python CERE_Phase9_v2_Python.py
 
       - name: Upload Phase 9 v2 artifacts
         if: always()
