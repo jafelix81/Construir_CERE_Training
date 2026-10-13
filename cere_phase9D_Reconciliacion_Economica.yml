@@ -1,0 +1,35 @@
+name: CERE Phase 9D - Reconciliacion Economica
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phase9d:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas yfinance
+
+      - name: Run CERE Phase 9D
+        run: |
+          python CERE_Phase9D_Reconciliacion_Economica.py
+
+      - name: Upload Phase 9D artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cere_phase9d_reconciliacion
+          path: cere_phase9d_reconciliacion/
+          if-no-files-found: warn
