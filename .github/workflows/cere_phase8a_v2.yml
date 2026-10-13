@@ -1,0 +1,33 @@
+name: CERE Phase 8A - Economic Position Sizing Benchmark
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phase8a:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy yfinance
+
+      - name: Run CERE Phase 8A
+        run: |
+          python construir_cere_training_phase8a_v2.py
+
+      - name: Upload Phase 8A artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cere-phase8a-economic
+          path: cere_phase8a_economic/
