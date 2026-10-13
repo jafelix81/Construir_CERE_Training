@@ -1,0 +1,32 @@
+name: CERE Phase 8D - CERE vs Low Volatility
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phase8d:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas scipy yfinance
+
+      - name: Run CERE Phase 8D
+        run: python construir_cere_training_phase8d.py
+
+      - name: Upload Phase 8D artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cere_phase8d_lowvol
+          path: cere_phase8d_lowvol/
